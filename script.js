@@ -1,17 +1,14 @@
-var key = "bustling"
-var ptext = document.getElementById("ptext").innerHTML
-var cipher = document.getElementById("cipher").innerHTML
+let key = "bustling"
+let ptext = document.getElementById("ptext").innerHTML
 
 function makeKey() {
-    var x = ptext.length
-    var nkey = []
+    let nkey = []
 
-    for (var i = 0;; i++) {
-        if (i == x) {
+    for (let i = 0;; i++) {
+        if (i == key.length) {
             i = 0
-            console.log("i'm happening")
         }
-        if (nkey.length == x) {
+        if (nkey.length == ptext.length) {
             break
         }
         nkey.push(key[i])
@@ -19,4 +16,25 @@ function makeKey() {
     return nkey
 }
 
-console.log(makeKey())
+function encrypt() {
+    let encText = ""
+    let k = makeKey()
+    for (let i = 0; i < ptext.length; i++) {
+        if (ptext[i].charCodeAt(0) < 97 || ptext[i].charCodeAt(0) > 123) {
+            encText += " "
+            k.splice(i, 0, " ")
+        } else {
+            let x = ((ptext.charCodeAt(i) - 97) + (k[i].charCodeAt(0) - 97)) % 26
+            x = String.fromCharCode(x + 97)
+            encText += x
+        }
+
+    }
+    return encText
+}
+
+function decrypt() {
+
+}
+
+document.getElementById("cipher").innerHTML = encrypt()
