@@ -21,8 +21,11 @@ function encrypt() {
     let k = makeKey()
     for (let i = 0; i < ptext.length; i++) {
         if (ptext[i].charCodeAt(0) < 97 || ptext[i].charCodeAt(0) > 123) {
-            encText += " "
-            k.splice(i, 0, " ")
+            encText += ""
+            k.splice(i, 0, "")
+            if (ptext[i] == " ") {
+                encText += " "
+            }
         } else {
             let x = ((ptext.charCodeAt(i) - 97) + (k[i].charCodeAt(0) - 97)) % 26
             x = String.fromCharCode(x + 97)
