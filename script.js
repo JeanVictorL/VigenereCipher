@@ -1,5 +1,6 @@
 let key = "bustling"
 let ptext = document.getElementById("ptext").innerHTML
+let cipher = document.getElementById("cipher").innerHTML
 
 function makeKey() {
     let nkey = []
@@ -37,7 +38,24 @@ function encrypt() {
 }
 
 function decrypt() {
-
+    let npText = ""
+    let k = makeKey()
+    let c = encrypt()
+    for (let i = 0; i < c.length; i++) {
+        if (c[i].charCodeAt(0) < 97 || c[i].charCodeAt(0) > 123) {
+            npText += ""
+            k.splice(i, 0, "")
+            if (c[i] == " ") {
+                npText += " "
+            }
+        } else {
+            let x = ((c.charCodeAt(i) - 97) - (k[i].charCodeAt(0) - 97) + 26) % 26
+            x = String.fromCharCode(x + 97)
+            npText += x
+        }
+    }
+    return npText
 }
 
 document.getElementById("cipher").innerHTML = encrypt()
+document.getElementById("decrypted").innerHTML = decrypt()
