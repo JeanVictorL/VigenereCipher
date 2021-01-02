@@ -18,6 +18,21 @@ function makeKey() {
 	return nkey;
 }
 
+function makecKey() {
+	let nkey = [];
+
+	for (let i = 0; ; i++) {
+		if (i == key.value.length) {
+			i = 0;
+		}
+		if (nkey.length == cipher.value.length) {
+			break;
+		}
+		nkey.push(key.value[i]);
+	}
+	return nkey;
+}
+
 function encrypt() {
 	let encText = "";
 	let k = makeKey();
@@ -33,7 +48,9 @@ function encrypt() {
 			}
 		} else {
 			let x =
-				(ptext.value.toLowerCase().charCodeAt(i) - 97 + (k[i].charCodeAt(0) - 97)) %
+				(ptext.value.toLowerCase().charCodeAt(i) -
+					97 +
+					(k[i].charCodeAt(0) - 97)) %
 				26;
 			x = String.fromCharCode(x + 97);
 			encText += x;
@@ -44,8 +61,8 @@ function encrypt() {
 
 function decrypt() {
 	let npText = "";
-	let k = makeKey();
-	let c = cipher.value;
+	let k = makecKey();
+	let c = cipher.value.toLowerCase();
 	for (let i = 0; i < c.length; i++) {
 		if (c[i].charCodeAt(0) < 97 || c[i].charCodeAt(0) > 123) {
 			npText += "";
