@@ -23,8 +23,8 @@ function encrypt() {
 	let k = makeKey();
 	for (let i = 0; i < ptext.value.length; i++) {
 		if (
-			ptext.value[i].charCodeAt(0) < 97 ||
-			ptext.value[i].charCodeAt(0) > 123
+			ptext.value[i].toLowerCase().charCodeAt(0) < 97 ||
+			ptext.value[i].toLowerCase().charCodeAt(0) > 123
 		) {
 			encText += "";
 			k.splice(i, 0, "");
@@ -33,7 +33,7 @@ function encrypt() {
 			}
 		} else {
 			let x =
-				(ptext.value.charCodeAt(i) - 97 + (k[i].charCodeAt(0) - 97)) %
+				(ptext.value.toLowerCase().charCodeAt(i) - 97 + (k[i].charCodeAt(0) - 97)) %
 				26;
 			x = String.fromCharCode(x + 97);
 			encText += x;
